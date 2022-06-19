@@ -48,6 +48,7 @@ public abstract class GraphSearch<L extends NodeCollection> implements SearchMet
             }
             explored.add(state);
             List<Action> actions = problem.getActions(state);
+            System.out.println("pai:\n"+ state);
             for(Action action : actions){
                 State successor = problem.getSuccessor(state, action);
                 addSuccessorToFrontier(successor, n);

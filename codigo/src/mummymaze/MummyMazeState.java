@@ -11,6 +11,7 @@ public class MummyMazeState extends State implements Cloneable {
 
     public static final int SIZE = 3;
     private final char[][] matrix;
+    private static long timesHeroDied;
     private static int lineExit;
     private static int columnExit;
     private static int lineKey;
@@ -32,6 +33,7 @@ public class MummyMazeState extends State implements Cloneable {
         enemies = new LinkedList<>();
         doors = new LinkedList<>();
         traps = new LinkedList<>();
+        timesHeroDied = 0;
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -277,10 +279,6 @@ public class MummyMazeState extends State implements Cloneable {
         }
     }
 
-    public void check() {
-
-    }
-
     public void changeDoorState() {
         for (Door door : doors) {
             door.changeDoorState(matrix);
@@ -299,18 +297,48 @@ public class MummyMazeState extends State implements Cloneable {
         return matrix;
     }
 
-    public double computeTilesOutOfPlace() {
+    public double computeEnemyDistanceToGoal() {
+        double distance = 0;
 
-        double h = 0;
+        if (lineHero == lineExit-1 && columnHero == columnExit || lineHero == lineExit+1 && columnHero == columnExit || lineHero == lineExit && columnHero == columnExit-1 || lineHero == lineExit && columnHero == columnExit+1) {
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix.length; j++) {
+                    if (this.matrix[i][j] == 'M' || this.matrix[i][j] == 'E' || this.matrix[i][j] == 'V') {
+                        if (lineHero == lineExit-1 && columnHero == columnExit) {
+                            distance = Math.abs(i - lineExit + 1) + Math.abs(j - columnExit);
+                            break;
+                        }
 
-        return h;
+                        if (lineHero == lineExit+1 && columnHero == columnExit) {
+                            distance = Math.abs(i - lineExit - 1) + Math.abs(j - columnExit);
+                            break;
+                        }
+
+                        if (lineHero == lineExit && columnHero == columnExit-1) {
+                            distance = Math.abs(i - lineExit) + Math.abs(j - columnExit + 1);
+                            break;
+                        }
+
+                        if (lineHero == lineExit && columnHero == columnExit+1) {
+                            distance = Math.abs(i - lineExit) + Math.abs(j - columnExit - 1);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return distance/2;
     }
 
-    public double computeTileDistances() {
+    public double computeHeroDistancesToGoalWhenHeDies() {
+        double distance = 0;
 
-        double h = 0;
+        if (isHeroDead()) {
+            distance = Math.abs(lineHero - lineExit) + Math.abs(columnHero - columnExit);
+        }
 
-        return h;
+        return distance/2;
     }
 
     public int getNumLines() {
