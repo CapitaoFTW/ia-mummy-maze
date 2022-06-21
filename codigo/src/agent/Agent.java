@@ -99,7 +99,7 @@ public class Agent<E extends State> {
         }
         sb.append("Num of expanded nodes: " + searchMethod.getStatistics().numExpandedNodes + "\n");
         sb.append("Max frontier size: " + searchMethod.getStatistics().maxFrontierSize + "\n");
-        sb.append("Num of generated nodes: " + searchMethod.getStatistics().numGeneratedSates + "\n");
+        sb.append("Num of generated states: " + searchMethod.getStatistics().numGeneratedStates + "\n");
 
         return sb.toString();
     }

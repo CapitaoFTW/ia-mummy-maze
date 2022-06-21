@@ -250,28 +250,28 @@ public class MummyMazeState extends State implements Cloneable {
 
         for (int i = 0; i < enemies.size(); i++) {
 
-            Enemy enemyi = enemies.get(i);
-            int linei = enemyi.getLine();
-            int columni = enemyi.getColumn();
+            Enemy enemyI = enemies.get(i);
+            int lineI = enemyI.getLine();
+            int columnI = enemyI.getColumn();
 
             for (int j = 0; j < enemies.size(); j++) {
 
-                Enemy enemyj = enemies.get(j);
-                int linej = enemyj.getLine();
-                int columnj = enemyj.getColumn();
+                Enemy enemyJ = enemies.get(j);
+                int lineJ = enemyJ.getLine();
+                int columnJ = enemyJ.getColumn();
 
                 if (i != j) {
-                    if (linei == linej && columni == columnj) {
-                        if (enemyi.getEnemyType() == enemyj.getEnemyType()) {
+                    if (lineI == lineJ && columnI == columnJ) {
+                        if (enemyI.getEnemyType() == enemyJ.getEnemyType()) {
                             enemies.remove(i);
 
-                        } else if (enemyi.getEnemyType() != 'E') {
+                        } else if (enemyI.getEnemyType() != 'E') {
                             enemies.remove(j);
-                            matrix[linei][columni] = enemyi.getEnemyType();
+                            matrix[lineI][columnI] = enemyI.getEnemyType();
 
                         } else {
                             enemies.remove(i);
-                            matrix[linej][columnj] = enemyj.getEnemyType();
+                            matrix[lineJ][columnJ] = enemyJ.getEnemyType();
                         }
                     }
                 }
